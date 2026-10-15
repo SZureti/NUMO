@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#09090D" />
+    <meta
+      name="description"
+      content="Find the hidden number. Five attempts. One living experiment in probability. NUMØ combines simple play with procedural 3D typography."
+    />
+    <title>NUMØ — An experimental game of probability</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script type="module" src="js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#guess">Skip to game controls</a>
+    <div class="app-shell">
+      <header class="masthead">
+        <a class="wordmark" href="./" aria-label="NUMØ home"
+          >NUM<span>Ø</span></a
+        >
+        <p class="brand-caption">AN EXPERIMENTAL<br />GAME OF PROBABILITY</p>
+        <nav aria-label="Main navigation">
+          <button class="nav-button active" id="game-nav" aria-current="page">
+            Game
+          </button>
+          <button class="nav-button" id="how-button">
+            How to play <span aria-hidden="true">↗</span>
+          </button>
+          <button class="nav-button" id="settings-button">
+            Settings <span aria-hidden="true">↗</span>
+          </button>
+        </nav>
+        <span class="orbit-mark" aria-hidden="true"></span>
+      </header>
+
+      <main id="game" class="game-layout">
+        <section class="intro" aria-labelledby="game-title">
+          <p class="eyebrow">
+            <span class="tiny-cross" aria-hidden="true">+</span> EXPERIMENT №
+            001
+          </p>
+          <h1 id="game-title">GUESS<br />THE<br /><span>NUMBER.</span></h1>
+          <div class="intro-copy">
+            <span class="short-rule" aria-hidden="true"></span>
+            <p>
+              One hidden number.<br />Five chances to find it.<br />Trust your
+              logic.
+            </p>
+          </div>
+          <div class="intro-bottom">
+            <span class="tiny-cross" aria-hidden="true">+</span>
+            <p>A SIMPLE GAME.<br />AN INFINITE SENSE<br />OF POSSIBILITY.</p>
+          </div>
+        </section>
+
+        <section
+          class="sculpture"
+          aria-label="Animated visualization of your latest guess"
+        >
+          <div class="sculpture-top">
+            <span id="scene-label">THE UNKNOWN</span
+            ><span aria-hidden="true">[ 01 — 100 ]</span>
+          </div>
+          <div class="orbital-grid" aria-hidden="true">
+            <div class="orbit-ring"><i></i><i></i><i></i><i></i></div>
+            <div class="crosshair-h"></div>
+            <div class="crosshair-v"></div>
+          </div>
+          <div id="number-stage" aria-hidden="true">
+            <span id="number-fallback">00</span>
+          </div>
+          <p class="sr-only" id="accessible-number">No guesses yet.</p>
+          <div class="scene-caption">
+            <span class="status-dot" aria-hidden="true"></span
+            ><span id="scene-status">AWAITING YOUR FIRST MOVE</span
+            ><span class="scene-coordinate" aria-hidden="true">N° / ∞</span>
+          </div>
+        </section>
+
+        <section class="control-panel" aria-labelledby="control-title">
+          <svg
+            class="wave-art"
+            viewBox="0 0 480 360"
+            fill="none"
+            aria-hidden="true"
+          >
+            <g id="wave-paths"></g>
+          </svg>
+          <div class="control-heading">
+            <span class="eyebrow">YOUR INTUITION. YOUR MOVE.</span>
+            <h2 id="control-title">Between<br /><span>1 and 100.</span></h2>
+          </div>
+          <div class="play-controls">
+            <div class="feedback" aria-hidden="true">
+              <span id="feedback-symbol">↗</span>
+              <div>
+                <strong id="feedback-title">MAKE A GUESS</strong>
+                <p id="feedback-detail">Every guess brings you closer.</p>
+              </div>
+            </div>
+            <form id="guess-form" novalidate>
+              <label for="guess">YOUR NUMBER</label>
+              <div class="input-shell">
+                <input
+                  id="guess"
+                  name="guess"
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  spellcheck="false"
+                  placeholder="Enter a number"
+                  aria-describedby="input-hint input-error"
+                /><button
+                  id="submit-guess"
+                  type="submit"
+                  aria-label="Submit guess"
+                >
+                  <span aria-hidden="true">→</span>
+                </button>
+              </div>
+              <div class="input-meta">
+                <span id="input-hint">WHOLE NUMBERS ONLY</span
+                ><span aria-hidden="true">ENTER ↵</span>
+              </div>
+              <p id="input-error" class="input-error"></p>
+            </form>
+            <div class="attempts-heading">
+              <span>ATTEMPTS REMAINING</span
+              ><strong id="attempt-count">05 <span>/ 05</span></strong>
+            </div>
+            <div id="attempt-dots" class="attempt-dots" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <p class="small-note">
+            A little intuition.<br />A little process of elimination.
+          </p>
+        </section>
+
+        <section class="history-section" aria-label="Guess history">
+          <div class="history-label">
+            <span class="eyebrow">YOUR TRAJECTORY</span>
+            <p>Each move leaves a trace.</p>
+          </div>
+          <ol id="guess-history" class="guess-history"></ol>
+        </section>
+      </main>
+      <footer>
+        <div class="footer-left">
+          <span class="status-dot" aria-hidden="true"></span> THE POSSIBILITIES
+          ARE FINITE. THE CURIOSITY ISN’T.
+        </div>
+        <button id="motion-toggle" aria-pressed="false">
+          <span id="motion-icon" aria-hidden="true">Ⅱ</span>
+          <span id="motion-label">PAUSE MOTION</span></button
+        ><span class="footer-edition">NUMØ — VOL. 001 / 2026</span>
+      </footer>
+    </div>
+    <p
+      id="announcements"
+      class="sr-only"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    ></p>
+    <noscript
+      ><p class="noscript">
+        NUMØ needs JavaScript to play. Enable JavaScript and reload this page.
+      </p></noscript
+    >
+
+    <!-- Native dialogs provide focus trapping and make the rest of the page inert. -->
+    <dialog id="how-dialog" aria-labelledby="how-title" class="info-dialog">
+      <button class="close-dialog" data-close aria-label="Close instructions">
+        ×
+      </button>
+      <p class="eyebrow">THE RULES ARE SIMPLE</p>
+      <h2 id="how-title">FIVE CHANCES.<br />ONE NUMBER.</h2>
+      <ol class="rules">
+        <li>
+          <b>01</b>
+          <div>
+            <h3>Find the hidden number.</h3>
+            <p>A random whole number from 1 to 100 is chosen for each round.</p>
+          </div>
+        </li>
+        <li>
+          <b>02</b>
+          <div>
+            <h3>Follow the feedback.</h3>
+            <p>
+              Too low? Go higher. Too high? Go lower. Your previous guesses stay
+              visible.
+            </p>
+          </div>
+        </li>
+        <li>
+          <b>03</b>
+          <div>
+            <h3>Make your five moves count.</h3>
+            <p>
+              Invalid entries and repeated guesses never cost an attempt. A
+              correct fifth guess still wins.
+            </p>
+          </div>
+        </li>
+      </ol>
+      <p class="dialog-note">
+        Five guesses make this a challenge: even a good strategy won’t win every
+        round.
+      </p>
+      <button class="solid-button" data-close>LET’S PLAY <span>↗</span></button>
+    </dialog>
+    <dialog
+      id="settings-dialog"
+      aria-labelledby="settings-title"
+      class="info-dialog"
+    >
+      <button class="close-dialog" data-close aria-label="Close settings">
+        ×
+      </button>
+      <p class="eyebrow">MAKE IT YOURS</p>
+      <h2 id="settings-title">FINE-TUNE<br />THE FEEL.</h2>
+      <div class="setting-row">
+        <div>
+          <label for="motion-setting">Animated sculpture</label>
+          <p id="motion-help">Organic movement and number morphing.</p>
+        </div>
+        <input
+          id="motion-setting"
+          type="checkbox"
+          checked
+          aria-describedby="motion-help"
+        />
+      </div>
+      <div class="setting-range">
+        <label for="intensity"
+          >Distortion intensity
+          <output id="intensity-value" for="intensity">35%</output></label
+        ><input id="intensity" type="range" min="0" max="100" value="35" />
+      </div>
+      <p class="dialog-note" id="system-motion-note">
+        Your preferences are saved on this device.
+      </p>
+      <button class="solid-button" data-close>
+        BACK TO THE GAME <span>↗</span>
+      </button>
+    </dialog>
+    <dialog
+      id="result-dialog"
+      aria-labelledby="result-title"
+      aria-describedby="result-description"
+      class="result-dialog"
+    >
+      <button
+        class="close-dialog"
+        data-close
+        aria-label="Close result and start a new game"
+      >
+        ×
+      </button>
+      <p class="eyebrow" id="result-eyebrow">EXPERIMENT COMPLETE</p>
+      <div id="result-number" aria-hidden="true">47</div>
+      <h2 id="result-title">YOU FOUND IT.</h2>
+      <p id="result-description"></p>
+      <button class="solid-button" data-close>PLAY AGAIN <span>→</span></button>
+      <p class="result-footnote">A NEW NUMBER. A NEW POSSIBILITY.</p>
+    </dialog>
+  </body>
+</html>
